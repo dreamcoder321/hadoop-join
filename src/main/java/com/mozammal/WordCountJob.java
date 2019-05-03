@@ -25,7 +25,7 @@ public class WordCountJob {
     FileInputFormat.addInputPath(job, new Path(args[1]));
     FileOutputFormat.setOutputPath(job, outputPath);
     outputPath.getFileSystem(conf).delete(outputPath, true);
-    DistributedCache.addCacheFile(new Path(args[0]).toUri(), conf);
+    DistributedCache.addCacheFile(new Path(args[0]).toUri(), job.getConfiguration());
     job.setJarByClass(WordCountJob.class);
     job.setMapperClass(WordCountMapper.class);
     job.setOutputValueClass(Text.class);

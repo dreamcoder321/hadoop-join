@@ -37,9 +37,9 @@ public class WordCountMapper extends Mapper<Object, Text, Text, Text> {
       distibutedCacheFile = DistributedCache.getLocalCacheFiles(context.getConfiguration());
 
       for (Path file : distibutedCacheFile) {
-        if (file.getName().startsWith("customer")) {
+       // if (file.getName().startsWith("customer")) {
           loadCustomerIntoCache(file, context);
-        }
+        //}
       }
     } catch (Exception ex) {
       System.err.println("Exception in mapper setup: " + ex.getMessage());
