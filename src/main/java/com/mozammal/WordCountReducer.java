@@ -1,3 +1,4 @@
+/*
 package com.mozammal;
 
 import org.apache.hadoop.io.IntWritable;
@@ -21,3 +22,4 @@ public class WordCountReducer extends Reducer<Text, IntWritable, Text, IntWritab
     context.write(key, result);
   }
 }
+*/
