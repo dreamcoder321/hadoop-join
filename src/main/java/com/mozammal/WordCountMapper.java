@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.rmi.server.ExportException;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
@@ -29,24 +30,19 @@ public class WordCountMapper extends Mapper<Object, Text, Text, Text> {
   }
 
   @Override
-  protected void setup(Context context)  {
+  protected void setup(Context context) {
 
     Path[] distibutedCacheFile = new Path[0];
     try {
       distibutedCacheFile = DistributedCache.getLocalCacheFiles(context.getConfiguration());
-    } catch (IOException e) {
-      System.out.println(e.getMessage());
-    }
 
-    for (Path file : distibutedCacheFile) {
-      if (file.getName().startsWith("customer")) {
-        context.getCounter(MYCOUNTER.FILE_EXISTS).increment(1);
-        try {
+      for (Path file : distibutedCacheFile) {
+        if (file.getName().startsWith("customer")) {
           loadCustomerIntoCache(file, context);
-        } catch (FileNotFoundException e) {
-          System.out.println(e.getMessage());
         }
       }
+    } catch (Exception ex) {
+      System.err.println("Exception in mapper setup: " + ex.getMessage());
     }
   }
 
@@ -69,7 +65,8 @@ public class WordCountMapper extends Mapper<Object, Text, Text, Text> {
           ccachedCustomers.put(customers[1].trim(), values);
         }
       }
-    } catch (IOException e) {
+    } catch (IOException ex) {
+      System.err.println("Exception in mapper setup: " + ex.getMessage());
     }
   }
 
