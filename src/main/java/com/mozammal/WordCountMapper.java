@@ -37,9 +37,9 @@ public class WordCountMapper extends Mapper<Object, Text, Text, Text> {
       distibutedCacheFile = DistributedCache.getLocalCacheFiles(context.getConfiguration());
 
       for (Path file : distibutedCacheFile) {
-       // if (file.getName().startsWith("customer")) {
-          loadCustomerIntoCache(file, context);
-        //}
+        // if (file.getName().startsWith("customer")) {
+        loadCustomerIntoCache(file, context);
+        // }
       }
     } catch (Exception ex) {
       System.err.println("Exception in mapper setup: " + ex.getMessage());
@@ -53,7 +53,7 @@ public class WordCountMapper extends Mapper<Object, Text, Text, Text> {
     try {
       try (BufferedReader brReader = new BufferedReader(new FileReader(file.toString()))) {
         while ((strLineRead = brReader.readLine()) != null) {
-          String customers[] = strLineRead.split("|");
+          String customers[] = strLineRead.split("\\|");
 
           String values = customers[0];
 
@@ -75,7 +75,7 @@ public class WordCountMapper extends Mapper<Object, Text, Text, Text> {
       throws IOException, InterruptedException {
 
     String line = value.toString();
-    String[] values = line.split("|");
+    String[] values = line.split("\\|");
 
     if (ccachedCustomers.containsKey(values[6])) {
       Text outputKey = new Text();
