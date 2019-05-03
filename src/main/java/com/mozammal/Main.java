@@ -1,4 +1,5 @@
 /*
+
 package com.mozammal;
 
 import java.io.*;
@@ -32,8 +33,10 @@ public class Main {
     while ((line = br1.readLine()) != null) {
 
       final String[] values = line.split("\\|");
-      if (hashSet.contains(values[6])) System.out.println("yes");
+      if (values[1].equals("86575"))
+      System.out.println(line);
     }
   }
 }
+
 */
