@@ -77,7 +77,7 @@ public class WordCountMapper extends Mapper<Object, Text, Text, Text> {
     String line = value.toString();
     String[] values = line.split("\\|");
 
-    if (ccachedCustomers.containsKey(values[6])) {
+    //ccachedCustomers.containsKey(values[6])) {
       Text outputKey = new Text();
       outputKey.set(values[6]);
       Text outputValue = new Text();
@@ -90,6 +90,6 @@ public class WordCountMapper extends Mapper<Object, Text, Text, Text> {
       }
       outputValue.set(str);
       context.write(outputKey, outputValue);
-    }
+   // }
   }
 }
