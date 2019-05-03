@@ -29,14 +29,23 @@ public class WordCountMapper extends Mapper<Object, Text, Text, Text> {
   }
 
   @Override
-  protected void setup(Context context) throws IOException, InterruptedException {
+  protected void setup(Context context)  {
 
-    Path[] distibutedCacheFile = DistributedCache.getLocalCacheFiles(context.getConfiguration());
+    Path[] distibutedCacheFile = new Path[0];
+    try {
+      distibutedCacheFile = DistributedCache.getLocalCacheFiles(context.getConfiguration());
+    } catch (IOException e) {
+      System.out.println(e.getMessage());
+    }
 
     for (Path file : distibutedCacheFile) {
       if (file.getName().startsWith("customer")) {
         context.getCounter(MYCOUNTER.FILE_EXISTS).increment(1);
-        loadCustomerIntoCache(file, context);
+        try {
+          loadCustomerIntoCache(file, context);
+        } catch (FileNotFoundException e) {
+          System.out.println(e.getMessage());
+        }
       }
     }
   }
