@@ -81,9 +81,9 @@ public class WordCountMapper extends Mapper<Object, Text, Text, Text> {
       Text outputKey = new Text();
       outputKey.set(values[6]);
       Text outputValue = new Text();
-      String str = values[6];
+      String str = values[1];
       for (int i = 0; i < values.length; i++) {
-        if (i == 6) {
+        if (i == 1) {
           continue;
         }
         str = str + "|" + values[i];
