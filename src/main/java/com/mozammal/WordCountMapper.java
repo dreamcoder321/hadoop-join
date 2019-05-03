@@ -57,12 +57,12 @@ public class WordCountMapper extends Mapper<Object, Text, Text, Text> {
 
           String values = customers[0];
 
-          for (int i = 1; i < customers.length; i++) {
+          for (int i = 2; i < customers.length; i++) {
             values += "|";
             values += customers[i];
           }
 
-          ccachedCustomers.put(customers[1].trim(), values);
+          ccachedCustomers.put(customers[0], values + "|");
         }
       }
     } catch (IOException ex) {
@@ -77,9 +77,9 @@ public class WordCountMapper extends Mapper<Object, Text, Text, Text> {
     String line = value.toString();
     String[] values = line.split("\\|");
 
-    //ccachedCustomers.containsKey(values[6])) {
+    if (ccachedCustomers.containsKey(values[1])) {
       Text outputKey = new Text();
-      outputKey.set(values[6]);
+      outputKey.set(values[1]);
       Text outputValue = new Text();
       String str = values[1];
       for (int i = 0; i < values.length; i++) {
@@ -88,8 +88,8 @@ public class WordCountMapper extends Mapper<Object, Text, Text, Text> {
         }
         str = str + "|" + values[i];
       }
-      outputValue.set(str);
+      outputValue.set(ccachedCustomers.get(values[1]) + str);
       context.write(outputKey, outputValue);
-   // }
+    }
   }
 }
