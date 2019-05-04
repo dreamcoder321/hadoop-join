@@ -1,9 +1,10 @@
 #start-yarn.sh
 #start-dfs.sh
 chmod +x  hadoop-run.sh
+sudo ./hadoop-run.sh
 
 export HADOOP_CLASSPATH=/usr/lib/jvm/jdk1.7.0_80/lib/tools.jar
-mvn install assembly:single
+sudo mvn install assembly:single
 export HADOOP_CLASSPATH=hadoop-join-1.0-SNAPSHOT-jar-with-dependencies.jar
 
 hadoop fs -copyFromLocal customer.tbl /user/hduser/input
