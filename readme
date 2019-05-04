@@ -1,16 +1,15 @@
-start-yarn.sh
-start-dfs.sh
+#start-yarn.sh
+#start-dfs.sh
+chmod +x hadoop=run.sh
 
 export HADOOP_CLASSPATH=/usr/lib/jvm/jdk1.7.0_80/lib/tools.jar
 mvn install assembly:single
-export HADOOP_CLASSPATH=wordcount.jar
+export HADOOP_CLASSPATH=hadoop-join-1.0-SNAPSHOT-jar-with-dependencies.jar
 
 hadoop fs -copyFromLocal customer.tbl /user/hduser/input
 hadoop fs -copyFromLocal orders.tbl /user/hduser/input
 
 hadoop com.mozammal.MapSideJoinMainJob /user/hduser/input/customer.tbl  /user/hduser/input/orders.tbl    /user/hduser/output
-
-
 hadoop fs -cat  /user/hduser/output/part-m-00000 | head
 
 
