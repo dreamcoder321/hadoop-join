@@ -19,7 +19,7 @@ public class MapSideJoin extends Mapper<Object, Text, NullWritable, Text> {
   @Override
   protected void setup(Context context) {
 
-    Path[] distibutedCacheFile = new Path[0];
+    Path[] distibutedCacheFile;
     try {
       distibutedCacheFile = DistributedCache.getLocalCacheFiles(context.getConfiguration());
 
