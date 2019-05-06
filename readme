@@ -1,5 +1,5 @@
 
-# you need to have jdk version 7 installed in the system.
+# you need to have jdk version 7 and maven installed in the system.
 #compiled and tested on the vm "ddm2019"
 
 cd hadoop-join
